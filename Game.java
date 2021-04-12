@@ -2,8 +2,11 @@ package tilegame;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import tilegame.gfx.ImageLoader;
+import tilegame.gfx.SpriteSheets;
 
 public class Game implements Runnable{
 
@@ -22,7 +25,10 @@ public class Game implements Runnable{
     contains the same data as the actual screen does*/
     
     /*buffer strategy helps the pc to understand how to draw elements ot the screen*/
-        
+    
+private BufferedImage test;
+private SpriteSheets sheet;
+    
     public Game(String title,int width,int height)
     {
         this.title=title;
@@ -43,9 +49,12 @@ public class Game implements Runnable{
             return;
         }
         g=bs.getDrawGraphics();
+        g.clearRect(0, 0, width, height);
         //drawing starts from here
         
-        g.fillRect(0, 0, width, height);
+            g.drawImage(sheet.crop(0, 0, 113, 84),0,0,null);
+            
+
         
         //drawing ends here
         bs.show();
@@ -68,6 +77,8 @@ public class Game implements Runnable{
     public void init()//initialize
     {
          display=new Display(title,width,height);
+         test=ImageLoader.loadImage("/images/spriteSheet1.png");
+         sheet=new SpriteSheets(test);
     }
     public synchronized void start()
     {
