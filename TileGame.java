@@ -5,7 +5,8 @@ public class TileGame {
 
     public static void main(String[] args) {
         
-        new Game("title!",400,400);
+        Game game=new Game("title!",640,360);
+        game.start();
 
     }
     
