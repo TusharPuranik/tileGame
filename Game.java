@@ -5,9 +5,13 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import tilegame.gfx.Assets;
 import tilegame.gfx.ImageLoader;
 import tilegame.gfx.SpriteSheets;
-import tilegame.gfx.*;
+import tilegame.states.GameState;
+import tilegame.states.MenuState;
+import tilegame.states.SettingState;
+import tilegame.states.State;
 
 public class Game implements Runnable{
 
@@ -19,12 +23,20 @@ public class Game implements Runnable{
     private Thread thread;
     
     private Graphics g;
+
     private BufferStrategy bs;
     
     /*buffer is a hidden screen in your computer that you cannot see. In other words its a hidden memeory which
     contains the same data as the actual screen does*/
+    
+    /*buffer strategy helps the pc to understand how to draw elements ot the screen*/
+    
 
-    /*buffer strategy helps the pc to understand how to draw elements ot the screen*/    
+    //States
+    private State gameState;
+    private State menuState;
+    private State settingState;
+    
     public Game(String title,int width,int height)
     {
         this.title=title;
@@ -32,9 +44,11 @@ public class Game implements Runnable{
         this.height=height;
     }
     
+    
     public void update()//keeps in updating the game
     {
-        
+      if(State.getState()!=null)
+          State.getState().update();
     }
     public void render()//keeps on repainting after updating of the game 
     {
@@ -48,15 +62,22 @@ public class Game implements Runnable{
         g.clearRect(0, 0, width, height);
         //drawing starts from here
         
+       
+        if(State.getState()!=null)
+          State.getState().render(g);
+
+        
         //drawing ends here
         bs.show();
         g.dispose();
     }
     
+    
     public void run()
     {
         init();
-       /*game loop timer is used so that the movements of all the elements in the 
+        
+        /*game loop timer is used so that the movements of all the elements in the 
         panel move equally in all computers and do not fluctuate
         */
         
@@ -76,7 +97,8 @@ public class Game implements Runnable{
             //delta tells the computer when and when not to call update() and render().
             timer+=now-lastTime;
             lastTime=now;
-                    
+            
+            
             if(delta>=1)
             {
                 update();
@@ -93,12 +115,19 @@ public class Game implements Runnable{
             //game loop timer ends here
         }
         stop();
+        
     }
     
     public void init()//initialize
     {
          display=new Display(title,width,height);
-        Assets.init();
+         Assets.init();
+         
+         gameState=new GameState();
+         menuState=new MenuState();
+         settingState=new SettingState();
+        
+         State.setState(gameState);
     }
     public synchronized void start()
     {
@@ -108,6 +137,7 @@ public class Game implements Runnable{
         running = true;
        thread=new Thread(this);
        thread.start();
+       
     }
     public synchronized void stop()
     {
@@ -120,4 +150,5 @@ public class Game implements Runnable{
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
 }
