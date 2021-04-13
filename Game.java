@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import tilegame.gfx.ImageLoader;
 import tilegame.gfx.SpriteSheets;
+import tilegame.gfx.*;
 
 public class Game implements Runnable{
 
@@ -26,8 +27,6 @@ public class Game implements Runnable{
     
     /*buffer strategy helps the pc to understand how to draw elements ot the screen*/
     
-private BufferedImage test;
-private SpriteSheets sheet;
     
     public Game(String title,int width,int height)
     {
@@ -52,7 +51,7 @@ private SpriteSheets sheet;
         g.clearRect(0, 0, width, height);
         //drawing starts from here
         
-            g.drawImage(sheet.crop(0, 0, 113, 84),0,0,null);
+            
             
 
         
@@ -77,8 +76,7 @@ private SpriteSheets sheet;
     public void init()//initialize
     {
          display=new Display(title,width,height);
-         test=ImageLoader.loadImage("/images/spriteSheet1.png");
-         sheet=new SpriteSheets(test);
+        Assets.init();
     }
     public synchronized void start()
     {
