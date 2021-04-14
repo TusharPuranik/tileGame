@@ -1,5 +1,4 @@
 package tilegame;
-
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -47,7 +46,7 @@ public class Game implements Runnable{
     public void init()//initialize
     {
          display=new Display(title,width,height);
-         display.getCanvas().addKeyListener(keyManager);
+         display.getframe().addKeyListener(keyManager);
          Assets.init();
          
          gameState=new GameState(this);
@@ -57,6 +56,7 @@ public class Game implements Runnable{
     }
     public void update()//keeps in updating the game
     {
+        keyManager.update();
       if(State.getState()!=null)
           State.getState().update();
     }
@@ -117,6 +117,12 @@ public class Game implements Runnable{
         }
         stop();   
     }
+    
+    public KeyManager getKeyManager()
+    {
+        return keyManager;
+    }
+    
     public synchronized void start()
     {
         if(running)
@@ -139,4 +145,3 @@ public class Game implements Runnable{
         }
     }
 }
-
