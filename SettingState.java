@@ -1,11 +1,11 @@
 package tilegame.states;
-
 import java.awt.Graphics;
+import tilegame.Game;
 
 public class SettingState extends State {
-    public SettingState()
+    public SettingState(Game game)
     {
-    
+        super(game);
     }
 
     @Override
@@ -17,7 +17,4 @@ public class SettingState extends State {
     public void render(Graphics g) {
 
     }
-    
-
-    
 }
