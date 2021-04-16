@@ -1,12 +1,12 @@
 package tilegame.worlds;
-
 import java.awt.Graphics;
 import tilegame.tile.Tile;
-
+import tilegame.utils.Utils;
 
 public class World {
 
     private int width,height;
+    private int spawnX,spawnY;
     private int[][] tiles;
     
     public World(String path)
@@ -42,16 +42,20 @@ public class World {
     
     public void loadWorld(String path)
     {
-        width=height=5;
-        tiles=new int [width][height];
+        String file=Utils.loadFileAsString(path);
+        String[] tokens= file.split("\\s+");
+        width=Utils.parseInt(tokens[0]);
+        height=Utils.parseInt(tokens[1]);
+        spawnX=Utils.parseInt(tokens[2]);
+        spawnY=Utils.parseInt(tokens[3]);
         
-        for(int x=0;x<width;x++)
+        tiles=new int[width][height];
+        for(int y=0;y<height;y++)
         {
-            for(int y=0;y<height;y++)
+            for(int x=0;x<width;x++)
             {
-                tiles[x][y]=0;
+                tiles[x][y]=Utils.parseInt(tokens[(x+y*width+4)]);
             }
         }
     }
-    
 }
