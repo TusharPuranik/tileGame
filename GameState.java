@@ -13,7 +13,7 @@ public class GameState extends State{
     {
         super(game);
         player=new Player(game,10,100);
-        world=new World("");
+        world=new World("resources/worlds/world1.txt");
     }
 
     @Override
