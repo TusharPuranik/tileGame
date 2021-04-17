@@ -8,6 +8,7 @@ public class Tile {
     public static Tile grassTile=new GrassTile(0);
     public static Tile dirtTile=new DirtTile(1);
     public static Tile rockTile=new RockTile(2);
+    public static Tile treeTile=new TreeTile(3);
 
     
     public static final int TILEWIDTH=64,TILEHEIGHT=64;
