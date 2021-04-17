@@ -13,7 +13,7 @@ public class GameState extends State{
     {
         super(game);
         player=new Player(game,10,100);
-        world=new World("resources/worlds/world1.txt");
+        world=new World(game, "resources/worlds/world1.txt");
     }
 
     @Override
@@ -25,7 +25,6 @@ public class GameState extends State{
     @Override
     public void render(Graphics g) {
         world.render(g);
-        player.render(g);
-       
+        player.render(g);      
     }
 }
