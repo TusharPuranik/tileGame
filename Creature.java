@@ -1,5 +1,5 @@
 package tilegame.entities.creatures;
-import java.awt.Graphics;
+import tilegame.Game;
 import tilegame.entities.Entity;
 
 public abstract class Creature extends Entity {
@@ -13,8 +13,8 @@ public abstract class Creature extends Entity {
     protected float speed;// This is added as we want our every creature to move.
     protected float xMove,yMove;
     
-    public Creature(float x, float y,int width,int height) {
-        super(x, y,width,height);
+    public Creature(Game game,float x, float y,int width,int height) {
+        super(game, x, y, width, height);
         health=DEFAULT_HEALTH;
         speed=DEFAULT_SPEED;
         xMove=0;
