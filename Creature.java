@@ -1,6 +1,7 @@
 package tilegame.entities.creatures;
 import tilegame.Handler;
 import tilegame.entities.Entity;
+import tilegame.tile.Tile;
 
 public abstract class Creature extends Entity {
 
@@ -23,8 +24,64 @@ public abstract class Creature extends Entity {
     
     public void move()
     {
-        x+=xMove;
-        y+=yMove;
+        moveX();
+        moveY();
+        
+        
+    }
+    
+    public void moveX()
+    {
+        if(xMove>0)//Moving right. 
+        {
+            int tx=(int)(x+xMove+bounds.x+bounds.width)/Tile.TILEWIDTH;
+            
+            if(!collisionWithTile(tx,(int)(y+bounds.y)/Tile.TILEHEIGHT)&&
+                    !collisionWithTile(tx,(int)(y+bounds.y+bounds.height)/Tile.TILEHEIGHT))
+            {
+                x+=xMove;
+            }
+            
+        }
+        else if(xMove<0)//Moving Left.
+        {
+            int tx=(int)(x+xMove+bounds.x)/Tile.TILEWIDTH;
+            
+            if(!collisionWithTile(tx,(int)(y+bounds.y)/Tile.TILEHEIGHT)&&
+                    !collisionWithTile(tx,(int)(y+bounds.y+bounds.height)/Tile.TILEHEIGHT))
+            {
+                x+=xMove;
+            }
+        }
+    }
+    
+    public void moveY()
+    {
+        if(yMove<0)//moving up
+        {
+            int ty=(int)(y+yMove+bounds.y)/Tile.TILEHEIGHT;
+            
+            if(!collisionWithTile((int)(x+bounds.x)/Tile.TILEWIDTH,ty)&&
+                    !collisionWithTile((int)(x+bounds.x+bounds.width)/Tile.TILEWIDTH,ty))
+            {
+                y+=yMove;
+            }
+        }
+        else if(yMove>0)//moving down
+        {
+            int ty=(int)(y+yMove+bounds.y+bounds.height)/Tile.TILEHEIGHT;
+            
+            if(!collisionWithTile((int)(x+bounds.x)/Tile.TILEWIDTH,ty)&&
+                    !collisionWithTile((int)(x+bounds.x+bounds.width)/Tile.TILEWIDTH,ty))
+            {
+                y+=yMove;
+            }
+        }
+    }
+    
+    protected boolean collisionWithTile(int x, int y)
+    {
+        return handler.getWorld().getTile(x, y).isSolid();
     }
 
     public float getxMove() {
