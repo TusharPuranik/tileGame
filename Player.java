@@ -1,21 +1,21 @@
 package tilegame.entities.creatures;
 import java.awt.Graphics;
-import tilegame.Game;
+import tilegame.Handler;
 import tilegame.gfx.Assets;
 
 public class Player extends Creature
 {
     
-    public Player(Game game,float x,float y)
+    public Player(Handler handler,float x,float y)
     {
-        super(game, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
+        super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
     }
 
     @Override
     public void update() {
         getInput();
         move();
-        game.getGameCamera().centerOnEntity(this);
+        handler.getGameCamera().centerOnEntity(this);
     }
     
     private void getInput()
@@ -23,21 +23,23 @@ public class Player extends Creature
         xMove=0;
         yMove=0;
         
-        if(game.getKeyManager().up)
+        if(handler.getKeyManager().up)
             yMove=-speed;
-        if(game.getKeyManager().left)
+        if(handler.getKeyManager().left)
             xMove=-speed;
-        if(game.getKeyManager().down)
+        if(handler.getKeyManager().down)
             yMove=speed;
-        if(game.getKeyManager().right)
+        if(handler.getKeyManager().right)
             xMove=speed;
     }
+    
 
     @Override
     public void render(Graphics g) {
         
-        g.drawImage(Assets.player, (int)(x - game.getGameCamera().getxOffset()), 
-                                    (int)(y - game.getGameCamera().getyOffset()), width, height, null);
+        g.drawImage(Assets.player, (int)(x - handler.getGameCamera().getxOffset()), 
+                                    (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
         
-    }   
+    }
+    
 }
