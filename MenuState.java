@@ -1,11 +1,11 @@
 package tilegame.states;
 import java.awt.Graphics;
-import tilegame.Game;
+import tilegame.Handler;
 
 public class MenuState extends State{
-    public MenuState(Game game)
+    public MenuState(Handler handler)
     {
-        super(game);
+        super(handler);
     }
     
     @Override
