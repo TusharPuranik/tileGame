@@ -37,6 +37,9 @@ public class Game implements Runnable{
     //Camera
     private GameCamera gameCamera;
     
+    //Handler
+    private Handler handler;
+    
     public Game (String title,int width,int height)
     {
         this.title=title;
@@ -52,9 +55,11 @@ public class Game implements Runnable{
          
          gameCamera=new GameCamera(this , 0, 0);
          
-         gameState=new GameState(this);
-         menuState=new MenuState(this);
-         settingState=new SettingState(this);
+         handler=new Handler(this);
+         
+         gameState=new GameState(handler);
+         menuState=new MenuState(handler);
+         settingState=new SettingState(handler);
          State.setState(gameState);
     }
     public void update()//keeps in updating the game
@@ -138,8 +143,6 @@ public class Game implements Runnable{
     public int getHeight() {
         return height;
     }
-    
-    
     
     public synchronized void start()
     {
