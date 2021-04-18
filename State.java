@@ -1,7 +1,6 @@
 package tilegame.states;
 import java.awt.Graphics;
-import tilegame.Game;
-
+import tilegame.Handler;
 
 public abstract class State {
     //game state manager code starts here
@@ -19,10 +18,10 @@ public abstract class State {
     
     //abstract classes
     
-    protected Game game;
-    public State(Game game)
+    protected Handler handler;
+    public State(Handler handler)
     {
-        this.game=game;
+        this.handler=handler;
     }
     
     public abstract void update();
