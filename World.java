@@ -1,6 +1,8 @@
 package tilegame.worlds;
 import java.awt.Graphics;
 import tilegame.Handler;
+import tilegame.entities.EntityManager;
+import tilegame.entities.creatures.Player;
 import tilegame.tile.Tile;
 import tilegame.utils.Utils;
 
@@ -11,15 +13,22 @@ public class World {
     private int spawnX,spawnY;
     private int[][] tiles;
     
+    //Entities
+    private EntityManager entityManager;
+    
     public World(Handler handler,String path)
     {
         this.handler=handler;
-         loadWorld(path);
+        entityManager=new EntityManager(handler,new Player(handler,100,100));
+        loadWorld(path);
+        entityManager.getPlayer().setX(spawnX);
+        entityManager.getPlayer().setY(spawnY);
+
     }
     
     public void update()
     {
-        
+        entityManager.update();
     }
     
     public void render(Graphics g)
@@ -37,6 +46,8 @@ public class World {
                                        (int)(y*Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()));
             }
         }
+        //Entities
+        entityManager.render(g);
     }
     
     public Tile getTile(int x,int y)
@@ -79,4 +90,5 @@ public class World {
     {
         return height;
     }
+    
 }
